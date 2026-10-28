@@ -1,0 +1,185 @@
+:root {
+    --court-green: #173c2c;
+    --court-moss: #2f6548;
+    --court-gold: #d6b766;
+    --court-paper: #f4eedc;
+    --court-ink: #241f18;
+}
+
+#frogcourt-panel {
+    position: fixed;
+    z-index: 35;
+    top: 58px;
+    right: 18px;
+    width: min(390px, calc(100vw - 36px));
+    max-height: calc(100vh - 76px);
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 20px;
+    color: var(--court-ink);
+    background:
+        radial-gradient(circle at 50% -10%, rgba(214, 183, 102, 0.35), transparent 33%),
+        var(--court-paper);
+    border: 2px solid var(--court-gold);
+    border-radius: 14px;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.48);
+    font-family: Georgia, 'Times New Roman', serif;
+}
+
+.court-seal {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 8px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--court-green);
+    border: 3px double var(--court-gold);
+    overflow: hidden;
+}
+
+.court-seal img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.court-kicker,
+.ruling-label {
+    margin: 0;
+    color: var(--court-moss);
+    text-align: center;
+    font: 700 0.68rem/1.3 system-ui, sans-serif;
+    letter-spacing: 0.13em;
+}
+
+#frogcourt-panel h1 {
+    margin: 5px 0 2px;
+    text-align: center;
+    font-size: 1.34rem;
+}
+
+.court-subtitle {
+    margin: 0 0 16px;
+    text-align: center;
+    color: #6f6453;
+    font-size: 0.82rem;
+    font-style: italic;
+}
+
+#court-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--court-green);
+    font-weight: 700;
+}
+
+#court-case {
+    width: 100%;
+    resize: vertical;
+    box-sizing: border-box;
+    padding: 10px;
+    color: var(--court-ink);
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid #aa9a78;
+    border-radius: 7px;
+    font: 0.9rem/1.4 system-ui, sans-serif;
+}
+
+.court-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 9px;
+}
+
+.court-actions button {
+    flex: 1;
+    padding: 9px 10px;
+    border: 1px solid var(--court-green);
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+#court-submit {
+    color: white;
+    background: var(--court-green);
+}
+
+#court-submit:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+#court-reset {
+    color: var(--court-green);
+    background: transparent;
+}
+
+#court-status {
+    margin: 12px 0 0;
+    padding: 9px 10px;
+    color: #dcebdd;
+    background: var(--court-green);
+    border-radius: 7px;
+    font: 0.78rem/1.35 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+#court-ruling {
+    margin-top: 15px;
+    padding-top: 14px;
+    border-top: 1px solid #b9aa88;
+}
+
+#court-ruling h2 {
+    margin: 8px 0;
+    color: var(--court-green);
+    text-align: center;
+    font-size: 1.28rem;
+}
+
+#court-opinion {
+    margin: 8px 0;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.5);
+    border-left: 4px solid var(--court-gold);
+    line-height: 1.45;
+}
+
+#court-sentence {
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+#court-ruling details {
+    margin-top: 10px;
+    font: 0.77rem/1.35 system-ui, sans-serif;
+}
+
+#court-record {
+    overflow-x: auto;
+    padding: 9px;
+    color: #d6ecd8;
+    background: #14261d;
+    border-radius: 6px;
+    white-space: pre-wrap;
+    font-size: 0.7rem;
+}
+
+.court-disclaimer {
+    margin: 12px 0 0;
+    color: #766b59;
+    text-align: center;
+    font: 0.67rem/1.3 system-ui, sans-serif;
+}
+
+@media (max-width: 760px) {
+    #frogcourt-panel {
+        top: auto;
+        right: 10px;
+        bottom: 10px;
+        left: 10px;
+        width: auto;
+        max-height: 58vh;
+    }
+}

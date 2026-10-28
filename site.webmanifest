@@ -1,0 +1,10 @@
+{
+  "name": "Frog Court",
+  "short_name": "Frog Court",
+  "description": "The Connectome Court of the Great Swamp",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#173c2c",
+  "icons": []
+}

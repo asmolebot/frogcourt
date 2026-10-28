@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">Frog Court seal</title>
+  <desc id="desc">A green frog judge beneath balanced scales</desc>
+  <circle cx="60" cy="60" r="57" fill="#173c2c" stroke="#d6b766" stroke-width="3"/>
+  <path d="M23 27h74M60 17v18M38 27l-13 20h26L38 27zm44 0L69 47h26L82 27z" fill="none" stroke="#d6b766" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <ellipse cx="60" cy="76" rx="32" ry="24" fill="#76a943" stroke="#d6b766" stroke-width="2"/>
+  <circle cx="42" cy="58" r="14" fill="#76a943" stroke="#d6b766" stroke-width="2"/>
+  <circle cx="78" cy="58" r="14" fill="#76a943" stroke="#d6b766" stroke-width="2"/>
+  <circle cx="42" cy="58" r="6" fill="#17130e"/>
+  <circle cx="78" cy="58" r="6" fill="#17130e"/>
+  <circle cx="40" cy="55" r="2" fill="#f4eedc"/>
+  <circle cx="76" cy="55" r="2" fill="#f4eedc"/>
+  <path d="M45 80c9 7 21 7 30 0" fill="none" stroke="#173c2c" stroke-width="3" stroke-linecap="round"/>
+  <path d="M42 102h36l-7-13H49l-7 13z" fill="#241f18" stroke="#d6b766" stroke-width="2"/>
+  <path d="M55 89l5 8 5-8" fill="#f4eedc" stroke="#d6b766" stroke-width="1.5"/>
+</svg>
