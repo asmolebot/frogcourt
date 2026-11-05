@@ -130,19 +130,23 @@
         var margin = aversion - approach;
         var guilty = margin >= 0;
         var severity = Math.min(4, Math.max(0, Math.floor(Math.abs(margin) / 4 + proceduralNoise / 3)));
-        var sentences = guilty ? [
-            'a formal warning from the cattails',
-            'three hours of invasive-duckweed removal',
-            'seven nights of mosquito census duty',
-            'remand to the dampest available log',
-            'indefinite contempt until the defendant produces one respectable lily pad',
-        ] : [
-            'immediate release on one’s own recognizance',
-            'dismissal with permission to leave the swamp',
-            'acquittal and reimbursement of one fly',
-            'expungement by ceremonial splash',
-            'a certificate of amphibious innocence',
-        ];
+        // Neural scores choose the legal family; case + quantized measurements choose prose.
+        var conflict = Math.abs(margin) <= Math.max(1, (aversion + approach) * 0.15);
+        var profile = aversion + approach < 1 ? 'ordinary' : conflict ? 'conflict'
+            : d.fatigue >= 0.6 ? 'fatigue'
+            : (d.groom >= 0.5 || n.SEZ_GROOM > Math.max(aversion, approach)) ? 'grooming'
+            : guilty ? 'escape' : approach > 1 ? 'approach' : 'ordinary';
+        var stateKey = JSON.stringify({
+            neural: Object.keys(n).sort().map(function (key) { return [key, Number(n[key].toFixed(3))]; }),
+            drives: Object.keys(d).sort().map(function (key) { return [key, Number(d[key].toFixed(3))]; }),
+            firedNeurons: reading.firedNeurons,
+        });
+        var seed = hashText('swamp-law-v2|' + stimulus.caseHash + '|' + stateKey);
+        var library = window.FrogJudgments[profile];
+        function choose(kind) {
+            return hashText(seed + '|' + kind) % library[kind].length;
+        }
+        var ids = {opinion: choose('opinions'), order: choose('orders'), dissent: choose('dissents')};
         var croaks = 1 + ((reading.firedNeurons + severity) % 4);
         var croakText = Array(croaks + 1).join('CROAK. ');
         var rationale = guilty
@@ -151,8 +155,13 @@
 
         return {
             verdict: guilty ? 'RIBBITABLY LIABLE' : 'NOT RIBBITABLY LIABLE',
-            opinion: croakText + rationale + ' The Court declines to pretend this constitutes human jurisprudence.',
-            sentence: 'ORDER: ' + sentences[severity] + '.',
+            opinion: croakText + rationale + ' ' + library.opinions[ids.opinion] + '. ' +
+                (conflict ? library.dissents[ids.dissent] : 'The Court declines to pretend this constitutes human jurisprudence.'),
+            sentence: 'ORDER: ' + (guilty ? 'Liability entered; ' : 'Acquitted; no punitive sentence imposed. The clerk shall ') +
+                library.orders[ids.order] + '.',
+            selection: {version: 'swamp-law-v2', profile: profile, severity: severity, seed: seed,
+                stateKey: stateKey, entries: ids,
+                rule: 'Same case hash and measured state select the same text. The live simulation can change between hearings.'},
             scores: {
                 aversion: Number(aversion.toFixed(3)),
                 approach: Number(approach.toFixed(3)),
@@ -176,6 +185,7 @@
             preDeliberation: before,
             deliberationAverage: reading,
             interpretationScores: ruling.scores,
+            judgmentSelection: ruling.selection,
             disclaimer: 'The connectome does not understand language or law. This is an art/toy interpretation of measured simulation state.',
         }, null, 2);
         document.getElementById('court-ruling').hidden = false;

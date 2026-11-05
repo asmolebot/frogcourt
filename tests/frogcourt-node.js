@@ -25,6 +25,7 @@ context.window = {
 };
 
 vm.createContext(context);
+vm.runInContext(fs.readFileSync(path.join(__dirname, '..', 'js', 'judgments.js'), 'utf8'), context);
 const source = fs.readFileSync(path.join(__dirname, '..', 'js', 'frogcourt.js'), 'utf8');
 vm.runInContext(source, context, {filename: 'frogcourt.js'});
 
@@ -63,3 +64,26 @@ assert.match(ruling.sentence, /^ORDER:/);
 assert.ok(ruling.scores.aversion > ruling.scores.approach);
 
 console.log('Frog Court core tests passed');
+
+assert.deepEqual(court.interpret(first, reading), ruling, 'identical case/state must replay exactly');
+assert.equal(ruling.selection.profile, 'escape');
+assert.equal(court.interpret(first, {...reading, drives: {...reading.drives, fatigue: 0.9}}).selection.profile, 'fatigue');
+assert.equal(court.interpret(first, {...reading, drives: {...reading.drives, groom: 0.9}}).selection.profile, 'grooming');
+const calm = {...reading, neural: Object.fromEntries(Object.keys(reading.neural).map(k => [k, 0])), drives: {fear: 0, curiosity: 0, groom: 0, fatigue: 0}};
+assert.equal(court.interpret(first, calm).selection.profile, 'ordinary');
+const curious = {...calm, drives: {...calm.drives, curiosity: 0.8}};
+assert.equal(court.interpret(first, curious).selection.profile, 'approach');
+assert.equal(court.interpret(first, {...calm, drives: {...calm.drives, curiosity: 0.05}}).selection.profile, 'ordinary');
+assert.match(court.interpret(first, curious).sentence, /Acquitted; no punitive sentence/);
+const variants = new Set();
+for (let i = 0; i < 500; i++) {
+    const result = court.interpret(court.buildStimulus('Docket ' + i), reading);
+    variants.add(result.opinion + result.sentence);
+    assert.equal(result.verdict, ruling.verdict, 'case variation must not override neural verdict');
+}
+assert.ok(variants.size > 100, 'library should yield substantial variety within one neural family');
+const reordered = {...reading, capturedAt: 'different', neural: Object.fromEntries(Object.entries(reading.neural).reverse())};
+assert.deepEqual(court.interpret(first, reordered), ruling, 'timestamps and property order must not change selection');
+console.log('Judgment replay, neural routing, acquittal and variety tests passed');
+
+assert.equal(court.interpret(first, {...calm, drives: {...calm.drives, fear: 0.5, curiosity: 0.6}}).selection.profile, 'conflict');

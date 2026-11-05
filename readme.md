@@ -12,6 +12,21 @@ The case-to-stimulus encoding is reproducible; the result may vary with the
 simulation's live state. Frog Court is not legal advice. It is barely legal
 cognition.
 
+## Judgment selection (swamp-law-v2)
+
+Six measured-state families (escape, approach, grooming, fatigue, conflict, and
+low-activity ordinary procedure) select from 48 opinions and 150 composed orders.
+Split decisions add a dissent, yielding 2,000 possible text combinations overall.
+Aversion versus approach still determines liability; acquittals carry no punitive
+sentence. Selection uses the case hash and canonically ordered neural/drive
+measurements rounded to three decimals, plus average firing count. It never uses
+wall-clock time or random draws. The same measured state and case replay exactly;
+a new hearing can differ as the live simulation evolves.
+
+The audit includes the library version, profile, seed, canonical state key, and
+selected entry indices. Replay requires the same library version. This is a
+transparent toy mapping, not evidence of legal understanding.
+
 ## Run Frog Court
 
 Serve the repository over HTTP so the browser can load the worker and binary

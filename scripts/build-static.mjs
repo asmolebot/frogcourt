@@ -22,6 +22,7 @@ const files = [
     'js/main.js',
     'js/sim-worker.js',
     'js/frogcourt.js',
+    'js/judgments.js',
     'js/vendor/three.min.js',
     'js/vendor/OrbitControls.js',
     'svg/center.svg',
