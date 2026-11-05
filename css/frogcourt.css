@@ -173,6 +173,47 @@
     font: 0.67rem/1.3 system-ui, sans-serif;
 }
 
+@media (max-width: 768px) {
+    #toolbar {
+        --court-toolbar-height: 84px;
+        height: var(--court-toolbar-height);
+    }
+
+    .toolbar-left {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        width: 100%;
+        gap: 4px;
+    }
+
+    .toolbar-left .tool-btn {
+        min-height: 36px;
+        padding: 4px;
+    }
+
+    .toolbar-right {
+        display: none;
+    }
+
+    .help-overlay {
+        top: calc(94px + env(safe-area-inset-top, 0px));
+    }
+}
+
+@media (max-width: 480px) {
+    #toolbar {
+        --court-toolbar-height: 124px;
+    }
+
+    .toolbar-left {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .help-overlay {
+        top: calc(134px + env(safe-area-inset-top, 0px));
+    }
+}
+
 @media (max-width: 760px) {
     #frogcourt-panel {
         top: auto;
